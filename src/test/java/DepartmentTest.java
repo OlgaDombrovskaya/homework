@@ -30,6 +30,7 @@ public class DepartmentTest {
         assertEquals(employee3, employeesResult.get(2));
     }
 
+
     @Test
     void testAddNullEmployee() {
         Employee employee = null;

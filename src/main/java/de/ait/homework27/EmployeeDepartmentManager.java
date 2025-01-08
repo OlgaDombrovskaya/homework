@@ -16,5 +16,6 @@ public class EmployeeDepartmentManager {
 
         System.out.println(business.getTotalCompanySalary());
         System.out.println(business.getAllPositions());
+
     }
 }

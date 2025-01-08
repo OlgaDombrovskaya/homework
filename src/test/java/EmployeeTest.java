@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class EmployeeTest {
+
     @Test
     void testEmployeeCreateAndGetterSettersWereSuccesfull() {
         Employee employee = new Employee("1","Doe","Junior developer", 35000);
