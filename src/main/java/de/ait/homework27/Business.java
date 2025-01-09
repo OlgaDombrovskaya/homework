@@ -51,6 +51,10 @@ public class Business {
         }
         return null;
     }
+    // Метод для получения всех департаментов
+    public HashMap<String, Department> getDepartments() {
+        return departments;
+    }
 
     public HashSet<String> getAllPositions(){
         HashSet<String> positions = new HashSet<>();
