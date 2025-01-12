@@ -3,99 +3,152 @@ package de.ait.homework27;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BusinessTest {
+
     private Business business;
-    private Department department1;
-    private Department department2;
-    private Employee employee1;
-    private Employee employee2;
 
+    // Этот метод выполняется перед каждым тестом, чтобы инициализировать объект бизнес.
+    // This method is executed before each test to initialize the business object.
     @BeforeEach
-    public void setUp() {
-        // Инициализация
-        business = new Business("My Business");
-
-        // Создаем сотрудников
-        employee1 = new Employee("123", "Alice", "Manager", 5000);
-        employee2 = new Employee("567", "Bob", "Developer", 3000);
-
-        // создаем департаменты и добавляем сотрудников
-        department1 = new Department("HR");
-        department1.addEmployee(employee1);
-
-        department2 = new Department("IT");
-        department2.addEmployee(employee2);
-
-        // добавляем департаменты
-        business.addDepartment(department1);
-        business.addDepartment(department2);
+    void setUp() {
+        business = new Business("Tech Corp");
     }
 
+    // Тест для проверки успешного добавления отдела в бизнес.
+    // Test to verify successful addition of a department to the business.
     @Test
-    public void testAddDepartmentShouldAddDepartmentSuccessfully() {
-        // Arrange: создаем новый департамент
-        Department newDepartment = new Department("Marketing");
+    void testAddDepartmentWasSuccessful() {
+        Employee employee1 = new Employee("1", "Doe", "Junior developer", 35000);
+        Employee employee2 = new Employee("3", "Tom", "Junior developer", 25000);
 
-        // Act: добавляем новый департамент
-        business.addDepartment(newDepartment);
+        Department departmentIT = new Department("IT");
+        departmentIT.addEmployee(employee1);
+        departmentIT.addEmployee(employee2);
 
-        // Assert: проверяем, что департамент был добавлен
-        assertNotNull(business.getDepartment("Marketing"), "Department should be added successfully");
+        Business business = new Business("CompIT");
+        business.addDepartment(departmentIT);
+        Department resultDepartment = business.getDepartment("IT");
+        assertEquals(departmentIT, resultDepartment);
     }
 
+    // Тест для проверки добавления отдела, если отдел равен null.
+    // Test to verify the addition of a department when the department is null.
     @Test
-    public void testRemoveDepartmentShouldRemoveExistingDepartment() {
-        // Act: удаляем существующий департамент
-        business.removeDepartment("HR");
+    void testAddDepartmentWhenDepartmentIsNull() {
+        Department departmentIT = null;
 
-        // Assert: проверяем, что департамент был удален
-        assertNull(business.getDepartment("HR"), "Department should be removed successfully");
+        Business business = new Business("CompIT");
+        business.addDepartment(departmentIT);
+        HashMap<String, Department> employeesResult = business.getDepartments();
+        assertEquals(0, employeesResult.size());
     }
 
+    // Тест для проверки удаления отдела с различными названиями или значением null.
+    // Test to verify removing a department with different names or null value.
     @Test
-    public void testRemoveDepartmentShouldNotRemoveNonExistingDepartment() {
-        // Act: пытаемся удалить несуществующий департамент
-        business.removeDepartment("Sales");
+    void testRemoveDepartmentWhenDepartmentNameIsDifferent() {
+        Employee employee1 = new Employee("1", "Doe", "Junior developer", 35000);
+        Employee employee2 = new Employee("3", "Tom", "Junior developer", 25000);
 
-        // Assert: проверяем, что департамент не был удален, потому что его не существует
-        assertNull(business.getDepartment("Sales"), "Non-existing department should not be removed");
+        Department departmentIT = new Department("IT");
+        departmentIT.addEmployee(employee1);
+        departmentIT.addEmployee(employee2);
+
+        Business business = new Business("CompIT");
+        business.addDepartment(departmentIT);
+
+        business.removeDepartment(null); // Удаляем с null названием
+        HashMap<String, Department> employeesResult = business.getDepartments();
+        assertEquals(1, employeesResult.size());
+
+        business.removeDepartment(""); // Удаляем с пустым названием
+        HashMap<String, Department> employeesResult2 = business.getDepartments();
+        assertEquals(1, employeesResult2.size());
+
+        business.removeDepartment("HR"); // Удаляем несуществующий отдел
+        HashMap<String, Department> employeesResult3 = business.getDepartments();
+        assertEquals(1, employeesResult3.size());
+
+        business.removeDepartment("IT"); // Удаляем существующий отдел
+        HashMap<String, Department> employeesResult4 = business.getDepartments();
+        assertEquals(0, employeesResult4.size());
     }
 
+    // Тест для проверки получения отдела, если название отдела не найдено, null или пустое.
+    // Test to verify retrieving a department when the name is not found, null, or empty.
     @Test
-    public void testGetDepartmentShouldReturnDepartment() {
-        // Act: получаем департамент по имени
-        Department department = business.getDepartment("IT");
+    void testGetDepartmentWhenDepartmentNameIsNotFoundOrNullOrEmpty() {
+        Business business = new Business("CompIT");
 
-        // Assert: проверяем, что департамент найден и его имя совпадает
-        assertNotNull(department, "Department should be found by name");
-        assertEquals("IT", department.getName(), "Department name should match");
+        Department resultDepartment = business.getDepartment(null); // Проверка с null
+        assertNull(resultDepartment);
+
+        Department resultDepartment2 = business.getDepartment(""); // Проверка с пустым названием
+        assertNull(resultDepartment2);
+
+        Department resultDepartment3 = business.getDepartment("HR"); // Проверка с несуществующим отделом
+        assertNull(resultDepartment3);
     }
 
+    // Тест для проверки получения отдела по названию.
+    // Test to verify retrieving a department by its name.
     @Test
-    public void testGetAllPositionsShouldReturnAllPositions() {
-        // Act: получаем все позиции сотрудников в бизнесе
-        HashSet<String> positions = business.getAllPositions();
+    public void testGetDepartment() {
+        Department dept = new Department("IT");
+        business.addDepartment(dept);
 
-        // Assert: проверяем, что список содержит все должности
-        assertTrue(positions.contains("Manager"), "Positions should contain 'Manager'");
-        assertTrue(positions.contains("Developer"), "Positions should contain 'Developer'");
-        assertEquals(2, positions.size(), "There should be 2 positions in total");
+        Department itResult = business.getDepartment("IT");
+        assertEquals(dept, itResult);
+        Department hrResult = business.getDepartment("HR");
+        assertNull(hrResult); // Несуществующий отдел
     }
 
+    // Тест для проверки получения всех уникальных должностей компании.
+    // Test to verify retrieving all unique positions in the company.
     @Test
-    public void testGetTotalCompanySalaryShouldReturnCorrectTotal() {
-        // Act: вычисляем общую зарплату всех сотрудников
-        double totalSalary = business.getTotalCompanySalary();
+    public void testGetUniquePositions() {
+        Department itDept = new Department("IT");
+        itDept.addEmployee(new Employee("1", "John Doe", "Developer", 60000));
+        itDept.addEmployee(new Employee("2", "Jane Smith", "Tester", 55000));
+        itDept.addEmployee(new Employee("3", "Max", "Tester", 55000));
 
-        // Assert: проверяем, что общая зарплата верна
-        assertEquals(8000, totalSalary, "Total salary should be the sum of all employee salaries (5000 + 3000)");
+        Department hrDept = new Department("HR");
+        hrDept.addEmployee(new Employee("3", "Alice", "Manager", 70000));
+
+        business.addDepartment(itDept);
+        business.addDepartment(hrDept);
+
+        HashSet<String> uniquePositions = business.getAllPositions();
+
+        assertTrue(uniquePositions.contains("Developer"));
+        assertTrue(uniquePositions.contains("Tester"));
+        assertTrue(uniquePositions.contains("Manager"));
+        assertEquals(3, uniquePositions.size()); // Проверка общего количества уникальных должностей
+    }
+
+    // Тест для проверки подсчета общей зарплаты компании.
+    // Test to verify the total company salary calculation.
+    @Test
+    public void testGetTotalCompanySalary() {
+        Department itDept = new Department("IT");
+        itDept.addEmployee(new Employee("1", "John Doe", "Developer", 60000));
+
+        Department hrDept = new Department("HR");
+        hrDept.addEmployee(new Employee("2", "Jane Smith", "Manager", 80000));
+
+        business.addDepartment(itDept);
+        business.addDepartment(hrDept);
+
+        double expectedTotalSalary = 60000 + 80000;
+        double totalCompanySalaryResult = business.getTotalCompanySalary();
+        assertEquals(expectedTotalSalary, totalCompanySalaryResult);
     }
 
     @Test
@@ -104,7 +157,7 @@ public class BusinessTest {
         business.addDepartment(null);
 
         // Assert: проверяем, что департамент не был добавлен
-        assertEquals(2, business.getDepartments().size(), "Business should not add a null department");
+        assertEquals(0, business.getDepartments().size(), "Business should not add a null department");
     }
 
     @Test
@@ -113,7 +166,7 @@ public class BusinessTest {
         business.removeDepartment("");
 
         // Assert: проверяем, что департамент не был удален
-        assertEquals(2, business.getDepartments().size(), "Business should not remove department if name is empty");
+        assertEquals(0, business.getDepartments().size(), "Business should not remove department if name is empty");
     }
 
     @Test
