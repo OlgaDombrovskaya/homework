@@ -4,15 +4,15 @@ public class MainUser {
     public static void main(String[] args) {
         // Работа с экземпляром класса User (обычный пользователь)
         User regularUser = new User("1AA", "John", "john@gmail.com");
-        regularUser.printInfo();
+        regularUser.printInfo();//Логируется
 
         PremiumUser premiumUser = new PremiumUser("2BB", "Alice", "alice@uralweb.ru", 2024);
         premiumUser.printInfo(); // Вывод информации о премиум-пользователе
         System.out.println("Активна ли подписка у Alice? " + premiumUser.isSubscriptionActive()); // Проверка активности подписки
 
         AdminUser adminUser = new AdminUser("3CC", "Bob", "bob@yahoo.com");
-        adminUser.printInfo(); // Вывод информации о администраторе
-        adminUser.banUser(regularUser); // Блокировка пользователя
+        adminUser.printInfo(); // Вывод информации о администраторе/Логируется
+        adminUser.banUser(regularUser); // Блокировка пользователя/Логируется
         // System.out.println("Заблокирован ли John? " + adminUser.isBanned(regularUser)); // Проверка, заблокирован ли John
 
         // Вызываем методы для разных типов пользователей с использованием полиморфизма
@@ -26,7 +26,7 @@ public class MainUser {
         anyUser.printInfo(); // Вызов метода printInfo из User, который будет переопределён в AdminUser
 
         regularUser.addFriend(premiumUser);
-        regularUser.addFriend(adminUser);
+        regularUser.addFriend(adminUser);//Логируется
 
         // Создание постов у друзей
         Post post1 = adminUser.createPost("Привет, друзья!", adminUser);
@@ -36,7 +36,7 @@ public class MainUser {
         post2.like();  // Увеличиваем лайк
         post2.like();  // Увеличиваем лайк
 
-        // Просмотр постов друзей обычным пользователем
+        // Просмотр постов друзей обычным пользователем/Логируется
         regularUser.viewFriendsPosts(); // John просматривает посты своих друзей
 
         // Создание постов пользователем, который является премиум-пользователем
