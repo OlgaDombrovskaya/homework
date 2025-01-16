@@ -11,6 +11,7 @@ public class PremiumUser extends User {
 
     @Override
     public void printInfo() {
+        super.printInfo(); // обязательно, иначе будет крутить до бесконечности
         System.out.println("Id: " + id + ", Name: " + name + ", Email: " + email
                 + ", Дата окончания подписки: " + subscriptionEndDate + ", Тип пользователя - Premium ");
     }
