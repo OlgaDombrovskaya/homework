@@ -20,14 +20,13 @@ public class MainLikes {
             System.out.println(comment);
         }
 
-        post.getInfoAboutPost();  // 2 ВАРИАНТ
+        //post.getInfoAboutPost();  // 2 ВАРИАНТ
 
         System.out.println("--------------------------");
 
         Post postMusic = new Post(); // "кривой пост"
         postMusic.like(); // поставим лайк
         postMusic.addComment(null);//добавим коммент
-        postMusic.getInfoAboutPost();//выведем информацию
-
+       // postMusic.getInfoAboutPost();//выведем информацию
     }
 }

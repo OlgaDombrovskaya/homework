@@ -46,13 +46,13 @@ public class Post implements Likable, Commentable{
 
     // 2 ВАРИАНТ : Отображает подробную информацию о сообщении, включая лайки и комментарии.
 
-    public void getInfoAboutPost() {
+   /* public void getInfoAboutPost() {
         System.out.println("---------Post info--------------");
         log.info("Post info");
         System.out.println("Likes count: " + likesCount);
         log.info("Likes count: {}", likesCount);
         System.out.println("Comments: " + comments);
         log.info("Comments: {}", comments);
+        }
+    */
     }
-
-}

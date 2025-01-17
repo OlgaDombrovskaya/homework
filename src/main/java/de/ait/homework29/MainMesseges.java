@@ -27,11 +27,12 @@ public class MainMesseges {
 
         // 2 ВАРИАНТ
         // Получение и отображение истории сообщений для пользователя 1
-        List<String> userOneMessages = userMessenger.receiveMessages("1");
+        /*List<String> userOneMessages = userMessenger.receiveMessages("1");
         System.out.println(userOneMessages);
 
         // Получение и отображение истории сообщений для пользователя 2
         List<String> userTwoMessages = userMessenger.receiveMessages("2");
         System.out.println(userTwoMessages);
+        */
     }
 }
