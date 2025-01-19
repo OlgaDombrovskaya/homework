@@ -19,4 +19,12 @@ public abstract class MailItem  {
         System.out.println("Получатель: " + recipient);
         System.out.println("Вес: " + weight + " кг");
     }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public String getRecipient() {
+        return recipient;
+    }
 }

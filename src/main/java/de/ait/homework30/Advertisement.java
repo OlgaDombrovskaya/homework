@@ -11,11 +11,14 @@ public class Advertisement extends MailItem {
 
     public Advertisement(String sender, String recipient, double weight, int quantity) {
         super(sender, recipient, weight);
-        if (quantity < 0){
+        this.quantity = quantity;
+        if (quantity < 0) {
             logger.error("Количество листовок не может быть отрицательным!");
             System.out.println("Количество листовок не может быть отрицательным!");
+            this.quantity = 0;
+        } else {
+            this.quantity = quantity;
         }
-        this.quantity = quantity;
     }
 
     @Override
@@ -24,7 +27,7 @@ public class Advertisement extends MailItem {
         if (quantity == 0) {
             System.out.println("Количество рекламных листовок равно 0!");
             logger.warn("Количество рекламных листовок равно 0!");
-            return 0;  // Нечего отправлять
+            return 0.0;  // Нечего отправлять
         }
 
         // Рассчитываем количество пакетов
@@ -43,6 +46,7 @@ public class Advertisement extends MailItem {
         // Стоимость доставки за количество пакетов
         return numberOfPackets * 1; // 1 евро за каждый пакет
     }
+
     @Override
     public void printDetails() {
         System.out.println("Рекламная листовка:");

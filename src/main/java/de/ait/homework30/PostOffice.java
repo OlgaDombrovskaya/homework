@@ -29,4 +29,8 @@ public class PostOffice {
             System.out.println("Стоимость доставки: " + item.calculateShippingCost() + " евро\n");
         }
     }
+    // Getter для списка mailItems
+    public List<MailItem> getMailItems() {
+        return mailItems;
+    }
 }
