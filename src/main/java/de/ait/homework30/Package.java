@@ -1,5 +1,8 @@
 package de.ait.homework30;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Package extends MailItem {
 
     private double length;//длина
@@ -16,6 +19,7 @@ public class Package extends MailItem {
     @Override
     public double calculateShippingCost() {
         if (weight <= 0) {
+            log.warn("Attempt to calculate shipping cost for empty package ");
             return 0;
         } else {
             return weight * 2;
@@ -27,5 +31,8 @@ public class Package extends MailItem {
         System.out.println("Посылка:");
         super.printDetails();
         System.out.println("Размеры: " + length + " x " + width + " x " + height + " см");
+        double cost = calculateShippingCost();
+        System.out.println("Стоимость доставки: " + cost + " евро");
+        System.out.println("---------------------------");
     }
-}
+    }
