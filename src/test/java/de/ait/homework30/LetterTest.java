@@ -13,8 +13,8 @@ public class LetterTest {
     @CsvSource({
             "'Leonardo DiCaprio', 'Brad Pitt', 0.05, true, 10", // Зарегистрированное письмо
             "'Tom Cruise', 'Все жители Голливуда', 0.05, false, 5", // Обычное письмо
-            "'null', 'Brad Pitt', 0.05, false, 5", // Письмо с null значениями
-            "'Scarlett Johansson', 'null', 0.05, false, 5" // Письмо с null значениями
+            "'', 'Brad Pitt', 0.05, false, 5", // Письмо с null значениями
+            "'Scarlett Johansson', '', 0.05, false, 5" // Письмо с null значениями
     })
     void testCalculateShippingCost(String sender, String recipient, double weight, boolean isRegistered, double expectedCost) {
         // Arrange
