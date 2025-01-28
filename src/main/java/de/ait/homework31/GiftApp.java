@@ -84,42 +84,24 @@ public class GiftApp {
     private static GiftCategory getGiftCategory() {
         while (true) {
             String input = scanner.nextLine().toUpperCase();  // Преобразуем ввод заглавными буквами
-
-            // Сравниваем введенное значение с возможными категориями
-            if (input.equals("ELECTRONICS")) {
-                return GiftCategory.ELECTRONICS;
-            } else if (input.equals("TOYS")) {
-                return GiftCategory.TOYS;
-            } else if (input.equals("BOOKS")) {
-                return GiftCategory.BOOKS;
-            } else if (input.equals("CLOTHING")) {
-                return GiftCategory.CLOTHING;
-            } else if (input.equals("HOME_APPLIANCES")) {
-                return GiftCategory.HOME_APPLIANCES;
-            } else {
-                System.out.println("Неверный ввод. Попробуйте снова.");
+                try {
+                    return GiftCategory.valueOf(input);  // Используем метод valueOf для enum
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Неверный ввод. Попробуйте снова.");
+                }
             }
-        }
     }
 
     // Метод для получения статуса подарка
     private static GiftStatus getGiftStatus() {
-        while (true) {
-            String input = scanner.nextLine().toUpperCase();  // Преобразуем ввод заглавными буквами
-
-            // Сравниваем введенное значение с возможными статусами
-            if (input.equals("AVAILABLE")) {
-                return GiftStatus.AVAILABLE;
-            } else if (input.equals("OUT_OF_STOCK")) {
-                return GiftStatus.OUT_OF_STOCK;
-            } else if (input.equals("RESERVED")) {
-                return GiftStatus.RESERVED;
-            } else if (input.equals("DELIVERED")) {
-                return GiftStatus.DELIVERED;
-            } else {
-                System.out.println("Неверный ввод. Попробуйте снова.");
+            while (true) {
+                String input = scanner.nextLine().toUpperCase();
+                try {
+                    return GiftStatus.valueOf(input);  // Используем метод valueOf для enum
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Неверный ввод. Попробуйте снова.");
+                }
             }
-        }
     }
 
     // Показ всех подарков
