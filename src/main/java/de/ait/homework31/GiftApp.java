@@ -1,5 +1,7 @@
 package de.ait.homework31;
 
+import de.ait.exceptions.WrongCategoryException;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,7 +20,11 @@ public class GiftApp {
 
             switch (choice) {
                 case 1:
+                    try {
                     addGift();  // Добавить подарок
+                    } catch (WrongCategoryException e) {
+                        System.out.println("Ошибка: " + e.getMessage());
+                    }
                     break;
                 case 2:
                     showAllGifts();  // Показать все подарки
@@ -31,9 +37,12 @@ public class GiftApp {
                     break;
                 case 5:
                     System.out.println("Выход из программы. Спасибо за использование!");
+                    scanner.close();
                     return; // Выход из программы
+
                 default:
                     System.out.println("Неверный выбор. Попробуйте снова.");
+                    printMenu();
             }
         }
     }
@@ -62,16 +71,19 @@ public class GiftApp {
                 System.out.println("Ошибка: выберите число от 1 до 5.");
             }
         }
+        scanner.nextLine(); // Очистка буфера
         return choice; // Возвращаем корректное число
     }
 
 
       // Добавление нового подарка
-    private static void addGift() {
+    private static void addGift()throws WrongCategoryException {
         System.out.print("Введите название подарка: ");
-        String name = scanner.nextLine();
+        String name = scanner.nextLine().trim();
+
         System.out.println("Выберите категорию (ELECTRONICS, TOYS, BOOKS, CLOTHING, HOME_APPLIANCES): ");
         GiftCategory category = getGiftCategory();
+
         System.out.println("Выберите статус (AVAILABLE, OUT_OF_STOCK, RESERVED, DELIVERED): ");
         GiftStatus status = getGiftStatus();
 
@@ -138,7 +150,7 @@ public class GiftApp {
     // Обновление статуса подарка
     private static void updateGiftStatus() {
         System.out.print("Введите название подарка, чтобы обновить его статус: ");
-        String name = scanner.nextLine();
+        String name = scanner.nextLine().trim();
 
         Gift gift = giftManager.getGiftByName(name);
         if (gift == null) {
