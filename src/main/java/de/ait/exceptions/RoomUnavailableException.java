@@ -1,4 +1,4 @@
-package de.ait.homework32;
+package de.ait.exceptions;
 
 public class RoomUnavailableException extends Exception {
 

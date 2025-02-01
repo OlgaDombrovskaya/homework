@@ -1,5 +1,7 @@
 package de.ait.homework32;
 
+import de.ait.exceptions.NoActiveReservationException;
+import de.ait.exceptions.RoomUnavailableException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -8,7 +10,7 @@ import java.util.Map;
 public class HotelReservationSystem {
 
     // Используем Map для отслеживания состояния комнат
-    private Map<Integer, Boolean> rooms = new HashMap<>();
+    private Map<Integer, Boolean> rooms;
 
     public HotelReservationSystem(Map<Integer, Boolean> rooms) {
         this.rooms = rooms;
@@ -18,23 +20,19 @@ public class HotelReservationSystem {
         log.info("Попытка забронировать комнату: " + requestedRoomNumber);
 
         if (requestedRoomNumber <= 0) { // Проверяем номер  запрашиваемой комнаты
-            log.warn("Некорректный номер комнаты: " + requestedRoomNumber);
             throw new IllegalArgumentException("Некорректный номер комнаты: " + requestedRoomNumber);
         }
 
         if (guestName == null || guestName.trim().isEmpty()) { // Проверяем имя гостя
-            log.warn("Некорректное имя гостя для комнаты " + requestedRoomNumber);
             throw new IllegalArgumentException("Некорректное имя гостя для комнаты: " + requestedRoomNumber);
         }
 
         // Проверка, существует ли комната
         if (!rooms.containsKey(requestedRoomNumber)) {
-            log.warn("Комната с номером " + requestedRoomNumber + " не существует.");
-            throw new IllegalArgumentException("Комната с номером " + requestedRoomNumber + " не существует.");
+            throw new RoomUnavailableException("Комната с номером " + requestedRoomNumber + " не существует.");
         }
         // Проверка, свободна ли комната
         if (!rooms.get(requestedRoomNumber)) { // Если комната занята
-            log.warn("Комната номер " + requestedRoomNumber + " уже занята.");
             throw new RoomUnavailableException("Комната номер " + requestedRoomNumber + " уже занята.");
         } else {
             rooms.put(requestedRoomNumber, false); // Помечаем комнату как занятую
@@ -44,17 +42,14 @@ public class HotelReservationSystem {
     }
 
     // Метод для отмены бронирования
-    public void cancelReservation(int roomNumber) throws IllegalArgumentException, NoActiveReservationException {
+    public void cancelReservation(int roomNumber) throws  NoActiveReservationException {
         log.info("Попытка отмены бронирования для комнаты: " + roomNumber);
         // Проверка на существование комнаты
         if (!rooms.containsKey(roomNumber)) {
-            log.warn("Комната с номером " + roomNumber + " не существует.");
-            throw new IllegalArgumentException("Комната с номером " + roomNumber + " не существует.");
+            throw new NoActiveReservationException("Комната с номером " + roomNumber + " не существует.");
         }
-
         // Если комната уже свободна, выбрасываем исключение
         if (rooms.get(roomNumber)) {
-            log.warn("Нельзя отменить несуществующее бронирование для комнаты номер " + roomNumber);
             throw new NoActiveReservationException("Нельзя отменить несуществующее бронирование для комнаты номер " + roomNumber + ".");
         }
 
@@ -78,6 +73,7 @@ public class HotelReservationSystem {
         try {
             system.reserveRoom(0, "Михаил Немов"); // Некорректный номер
         } catch (RoomUnavailableException | IllegalArgumentException e) {
+            log.error(e.getMessage());
             System.out.println(e.getMessage());
         }
 
@@ -86,11 +82,13 @@ public class HotelReservationSystem {
             system.reserveRoom(2, "Сергей Петров");
             system.reserveRoom(1, "Артем Иванов"); // Попытка забронировать уже занятую комнату
         } catch (RoomUnavailableException | IllegalArgumentException e) {
+            log.error(e.getMessage());
             System.out.println(e.getMessage());
         }
         try {
             system.reserveRoom(3, ""); // Пустое имя
         } catch (RoomUnavailableException | IllegalArgumentException e) {
+            log.error(e.getMessage());
             System.out.println(e.getMessage());
         }
 
@@ -99,17 +97,20 @@ public class HotelReservationSystem {
             system.cancelReservation(1); // Отмена бронирования
             system.cancelReservation(0);
         } catch (IllegalArgumentException | NoActiveReservationException e) {
+            log.error(e.getMessage());
             System.out.println(e.getMessage());
         }
 
         try {
             system.cancelReservation(1); // Попытка отмены несуществующего бронирования
         } catch (IllegalArgumentException | NoActiveReservationException e) {
+            log.error(e.getMessage());
             System.out.println(e.getMessage());
         }
         try {
             system.reserveRoom(0, "Герман Каримов"); // Попытка забронировать несуществующую комнату
         } catch (RoomUnavailableException | IllegalArgumentException e) {
+            log.error(e.getMessage());
             System.out.println(e.getMessage());
         }
     }

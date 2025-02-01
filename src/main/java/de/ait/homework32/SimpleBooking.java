@@ -8,13 +8,16 @@ public class SimpleBooking {
     public static void bookRoom(int roomNumber, String guestName) {
 
         if (roomNumber <= 0) { // Проверяем номер комнаты
+            log.error("Некорректный номер комнаты: {}", roomNumber);
             throw new IllegalArgumentException("Некорректный номер комнаты: " + roomNumber);
         }
 
-        if (guestName.trim().isEmpty() || guestName == null) { // Проверяем имя гостя
-            throw new IllegalArgumentException("Некорректный номер комнаты: " + roomNumber);
+        if (guestName == null || guestName.trim().isEmpty()) { // Проверяем имя гостя
+            log.error("Имя гостя или номер комнаты отсутствует: {}", roomNumber);
+            throw new IllegalArgumentException("Имя гостя или номер комнаты отсутствует: " + roomNumber);
         } else {
-            System.out.println("Комната " + roomNumber + " успешно забронирована для " + guestName + ".");
+            log.info ("Комната: {}. Гость:  {}", roomNumber,guestName);
+            System.out.println("Комната: " + roomNumber + " успешно забронирована для " + guestName + ".");
         }
     }
 
@@ -27,7 +30,7 @@ public class SimpleBooking {
     }
 
     // Метод для тестирования
-    private static void testBookRoom(int roomNumber, String guestName, boolean shouldThrowException) {
+    public static void testBookRoom(int roomNumber, String guestName, boolean shouldThrowException) {
         try {
             if (shouldThrowException) {    // Ожидаем выброс исключения
                 bookRoom(roomNumber, guestName);
