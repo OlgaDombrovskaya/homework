@@ -13,18 +13,18 @@ public class AirlineReservationSystem {
     private Map<String, Map<Integer, Boolean>> flights = new HashMap<>();; {
 
     // Инициализация рейса SU100 и мест
-        Map<Integer, Boolean> su100Seats = new HashMap<>();
-        su100Seats.put(1, true);  // Место 1 свободно
-        su100Seats.put(2, true);  // Место 2 свободно
-        su100Seats.put(3, true);  // Место 3 свободно
-        flights.put("SU100", su100Seats); // Добавляем рейс SU100
+        Map<Integer, Boolean> SU100Seats = new HashMap<>();
+        SU100Seats.put(1, false);  // Место 1 свободно
+        SU100Seats.put(2, false);  // Место 2 свободно
+        SU100Seats.put(3, false);  // Место 3 свободно
+        flights.put("SU100", SU100Seats); // Добавляем рейс SU100
 
         // Инициализация рейса BA202 и мест
-        Map<Integer, Boolean> ba202Seats = new HashMap<>();
-        ba202Seats.put(10, true);  // Место 10 свободно
-        ba202Seats.put(11, true);  // Место 11 свободно
-        ba202Seats.put(12, true);  // Место 12 свободно
-        flights.put("BA202", ba202Seats); // Добавляем рейс BA202
+        Map<Integer, Boolean> BA202Seats = new HashMap<>();
+        BA202Seats.put(10, false);  // Место 10 свободно
+        BA202Seats.put(11, false);  // Место 11 свободно
+        BA202Seats.put(12, false);  // Место 12 свободно
+        flights.put("BA202", BA202Seats); // Добавляем рейс BA202
     }
 
     // Метод для резервирования места на рейсе

@@ -3,7 +3,6 @@ package de.ait.homework33;
 import de.ait.exceptions.SeatUnavailableException;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
 @Slf4j
 public class AirlineReservationSystemApp {
 

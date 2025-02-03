@@ -3,9 +3,9 @@ package de.ait.exceptions;
 // Иерархия исключений, базовый класс FlightException для всех авиа-исключений,
 // а SeatUnavailableException, NoSuchFlightException как наследники
 
-public class SeatUnavailableException extends FlightException {
+public class FlightException extends Exception {
 
-    public SeatUnavailableException(String message) {
-        super(message);
-    }
+  public FlightException(String message) {
+    super(message);
+  }
 }
