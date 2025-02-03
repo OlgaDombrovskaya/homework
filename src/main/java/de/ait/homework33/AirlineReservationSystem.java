@@ -80,7 +80,7 @@ public class AirlineReservationSystem {
         }
 
         // Если место уже свободно, выбрасываем исключение
-        if (seats.get(seatNumber)) {
+        if (seats.get(seatNumber) == false) {
             throw new SeatUnavailableException("Невозможно отменить бронирование для места " + seatNumber + " на рейсе " + flightNumber + ", так как оно не забронировано.");
         }
 
