@@ -49,6 +49,13 @@ public class WeatherTestData {
                 .max(Comparator.comparingDouble(Weather::getTemperature));
         {
             System.out.println("\nГород с максимальной температурой:" + getMaxTemperatureCity.get());
+            // if (getMaxTemperatureCity.isPresent()) {
+            //    // Если значение присутствует, выводим город с максимальной температурой
+            //    System.out.println("\nГород с максимальной температурой: " + getMaxTemperatureCity.get());
+            //} else {
+            //    // Если значение отсутствует (например, если список пуст), выводим сообщение об ошибке
+            //    System.out.println("\nСписок городов пуст, невозможно найти город с максимальной температурой.");
+            //}
 
 
             // Дополнительное задание: Подсчёт средней температуры с использованием mapToDouble и average()
