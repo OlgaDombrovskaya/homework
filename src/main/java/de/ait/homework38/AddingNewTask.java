@@ -26,5 +26,8 @@ public class AddingNewTask {
             System.out.println("Ошибка при добавлении задачи в файл.");
             exception.printStackTrace();
         }
+        finally {
+            scanner.close();
+        }
     }
 }
