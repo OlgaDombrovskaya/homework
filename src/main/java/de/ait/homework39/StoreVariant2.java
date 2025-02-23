@@ -14,11 +14,11 @@ public class StoreVariant2 {
     public static void main(String[] args) {
 
 
-        Product product1 = new Product("Pumpkin", 4.00, 50, "P3V7K9J");
-        Product product2 = new Product("Artichoke", 2.60, 76, "R1J3B8K");
-        Product product3 = new Product("Peppers", 2.12, 20, "A6M5Q2E");
-        Product product4 = new Product("Zucchini", 2.40, 100, "B4R8L9D");
-        Product product5 = new Product("Asian Greens", 1.35, 12, "L9F6W3H");
+        Product product1 = new Product("Pumpkin", 4.00, 50, "P3V7K9J" , "овощи", "деревенские");
+        Product product2 = new Product("Artichoke", 2.60, 76, "R1J3B8K", "овощи", "производство Италия");
+        Product product3 = new Product("Peppers", 2.12, 20, "A6M5Q2E", "овощи","пр-во Испания");
+        Product product4 = new Product("Zucchini", 2.40, 100, "B4R8L9D","овощи", "Северский комбинат");
+        Product product5 = new Product("Asian Greens", 1.35, 12, "L9F6W3H","овощи", "пр-во Китай");
 
 
         List<Product> products = new ArrayList<>();
