@@ -4,30 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart<T extends Product> {
-    private List<T> basket;
+    private List<T> items;
 
     public Cart() {
-        this.basket = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
-    public List<T> getBasket() {
-        return basket;
+    public List<T> getItems() {
+        return items;
     }
 
     // Метод для добавления товара в корзину
     public void addProduct(T product) {
-        basket.add(product);
+        items.add(product);
     }
 
     // Метод для удаления товара по названию
     public boolean removeProductByName(String name) {
-        return basket.removeIf(product -> product.getName().equals(name));
+        return items.removeIf(product -> product.getName().equals(name));
     }
 
     // Метод для подсчета итоговой стоимости товаров в корзине
     public double getTotalPrice() {
         double total = 0;
-        for (T product : basket) {
+        for (T product : items) {
             total += product.getPrice();
         }
         return total;
@@ -35,14 +35,14 @@ public class Cart<T extends Product> {
 
     // Метод для вывода информации о каждом товаре
     public void printCartDetails() {
-        for (T product : basket) {
+        for (T product : items) {
             System.out.println(product.getDescription());
         }
     }
 
     public List<T> filterByPrice(double minPrice, double maxPrice) {
         List<T> filteredItems = new ArrayList<>();
-        for (T product : basket) {
+        for (T product : items) {
             if (product.getPrice() >= minPrice && product.getPrice() <= maxPrice) {
                 filteredItems.add(product);
             }
