@@ -24,10 +24,6 @@ public abstract class Product implements Comparable<Product> {
         return price;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     @Override
     public String toString() {
         return "Product{" +
